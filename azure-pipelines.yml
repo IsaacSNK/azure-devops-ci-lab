@@ -29,7 +29,8 @@ steps:
 
 - script: |
     go version
-    ls /usr/local/
+    echo "Checking go lang install" 
+    ls -lR /usr/local/
     go get -v -t -d ./...
     if [ -f Gopkg.toml ]; then
         curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
