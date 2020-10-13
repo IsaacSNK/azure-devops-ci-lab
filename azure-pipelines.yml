@@ -2,7 +2,7 @@ trigger:
  - master
 
 pool:
-   vmImage: 'ubuntu-latest'
+   vmImage: 'vs2017-win2016'
 
 steps: 
 - task: GoTool@0
@@ -16,10 +16,13 @@ steps:
 - task: Go@0
   inputs:
     command: 'build'
+    arguments: '-o azure-devops-ci-lab.exe'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-- task: CopyFiles@2
+- task: ArchiveFiles@2
+  displayName: 'archive files'
   inputs:
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+     rootFolderOrFile: '$(Build.Repository.LocalPath)'
+     includeRootFolder: False 
 - task: PublishBuildArtifacts@1
   inputs:
-     artifactName: azure-devops-ci-lab
+     artifactName: drop
